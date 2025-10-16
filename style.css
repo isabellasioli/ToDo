@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
+
+
+body {
+    background-color: rgb(222, 255, 247);
+}
+
+h1 {
+    font-family: "Lobster", sans-serif;
+    color:rgb(47, 124, 105);
+}
+
+.card {
+    background-color: rgb(135, 204, 187);
+    border: 1px solid rgb(129, 194, 178);
+}
+
+input [type="text"] {
+    background-color: white;
+    border: 1px solid rgb(53, 155, 129);
+}
+
+input[type="text"]::placeholder {
+    color: rgb(47, 124, 105);
+}
+
+input[type="text"]:focus {
+    background-color: rgb(237, 252, 248);
+    color: rgb(44, 44, 44);
+}
+
+#btn-nova-tarefa {
+    background-color: rgb(53, 155, 129);
+    color: white;
+    border: 1px solid rgb(53, 155, 129);
+}
+
+#btn-nova-tarefa.houver {
+    background-color: white;
+    color: rgb(53, 155, 129);
+}
+
+.list-group-item {
+    color: white;
+    background-color: rgb(135, 204, 187);
+    border: 1px solid rgb(129, 194, 178);
+}
+
