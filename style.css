@@ -1,13 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Stalinist+One&display=swap');
 
 
 body {
     background-color: rgb(222, 255, 247);
 }
 
-h1 {
-    font-family: "Lobster", sans-serif;
+h1.titulo, h5 {
+    font-family: "Permanent Marker", cursive;
     color:rgb(47, 124, 105);
 }
 
@@ -47,3 +46,26 @@ input[type="text"]:focus {
     border: 1px solid rgb(129, 194, 178);
 }
 
+.btn-concluir {
+    color: white;
+    background-color: rgb(53, 155, 129);
+    border: 1px solid rgb(53, 155, 129);
+}
+
+.btn-concluir:hover {
+    color: white;
+    background-color: rgb(48, 128, 108);
+    border: 1px solid rgb(48, 128, 108);
+    }
+
+.btn-excluir {
+    color: white;
+    background-color: rgb(161, 59, 84);
+    border: 1px solid rgb(161, 59, 84);
+    }
+
+    .btn-excluir:hover {
+        color: white;
+        background-color: rgb(75, 25, 48);
+        border: 1px solid rgb(75, 25, 48);
+        }

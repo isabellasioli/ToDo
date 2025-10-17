@@ -12,6 +12,14 @@ const lista_tarefas = document.querySelector("#lista-tarefas");
 
 // Carrega o áudio e reproduz ao clicar no botão "Concluir" uma tarefa.
 const audioConcluir = new Audio('sound/gmae.wav');
+// Força o navegador a pré-gravar o áudio para evitar atrasos na reprodução.
+audioConcluir.preload = "auto";
+
+// Variável global que controla a exibição da modal "ExcluirTarefa".
+const modalExcluir = new bootstrap.Modal(document.getElementById('exampleModal'));
+
+// Variável global que armazena a tarefa que será exclída.
+let id_tarefa_excluir;
 
 // -------------------------------------------------------
 // 2. FUNÇÕES DE LÓGICA 
@@ -29,8 +37,8 @@ function adicionarTarefa() {
     if (txt_nova_tarefa.value.trim() !== "") {
         const btn_item = ` 
         <div>
-            <button class="btn btn-success btn-sm me-2" onclick="concluirTarefa(this)">Concluir</button>
-            <button class="btn btn-danger btn-sm">Excluir</button>
+            <button class="btn btn-sm me-2 btn-concluir" onclick="concluirTarefa(this)">Concluir</button>
+            <button class="btn btn-sm btn-excluir" onclick="obterIDTarefaExcluir(this);modalExcluir.show()">Excluir</button>
         </div>
         `;
 
@@ -57,7 +65,7 @@ function adicionarTarefaEnter(evento) {
         adicionarTarefa();
     };
 }
-function concluirTarefa(elemento) {
+function concluirTarefa(btn_concluir) {
     // Reproduz o áudio ao clicar no botão "Concluir".
     audioConcluir.play();
 
@@ -65,6 +73,29 @@ function concluirTarefa(elemento) {
     for (let i = 0; i <= 50; i++) {
         confetti();
     }
+
+    // Atualiza o ID da tarefa a ser exluída e passa como parâmetro o botão de "Concluir" clickado.
+    obterIDTarefaExcluir(btn_concluir);
+
+    // Chama a função JS "excluirTarefa()".
+    excluirTarefa();
+
+}
+
+function excluirTarefa() {
+    // Remove o item da lista de tarefa.
+    lista_tarefas.removeChild(lista_tarefas.children[id_tarefa_excluir]);
+    // Fecha o modal de "Excluir tarefa".
+    modalExcluir.hide();
+}
+
+function obterIDTarefaExcluir(btn) {
+    // Encontra o elemento HTML "li" (item) pai mais próximo do botão de "Concluir" clickado.
+    // A função JS "obterIDTarefaExcluir()", o botão clickado é recebido como parâmetro da função.
+    const item = btn.closest("li");
+    const tarefas = Array.from(lista_tarefas.children);
+    // Por exemplo, se temos 3 tarefas e excluímos a última tarefa, id_tarefa_excluir será definido para "3" que é o ID da tarefa exclída.
+    id_tarefa_excluir = tarefas.indexOf(item);
 }
 
 // -------------------------------------------------------
