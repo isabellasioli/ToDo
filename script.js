@@ -33,20 +33,23 @@ function iniciaToDO() {
     
     // Carrega as tarefas salvas no cookie do navegador Web ao carregar a página 
     const arrayTarefas = ObterTarefasDoNavegador();
-    
+    // Limpa os cookies
     salvarCookieTarefas([]);
     arrayTarefas.forEach(strTarefa => {
         adicionarTarefa(strTarefa);
     });
+    // Permite arrastar e soltar as tarefas com o pressionar do mouse para alterar sua ordem de exibição
+    lista_tarefas.querySelectorAll("li").forEach(li => makeDraggable(li));
 }
 
-function adicionarTarefa(strTarefa) {
 
+function adicionarTarefa(strTarefa) {
+    
     if (typeof strTarefa !== 'string' || strTarefa == null) {
         // Atribui como valor da variável 'strTarefas' o texto digitado na caixa de texto 'Adicionar nova tarefa
         strTarefa = txt_nova_tarefa.value; 
     }
-
+    
     // Se a caixa de texto não está vazia .trim() remove espaços em branco do começo e fim do valor do campo.
     if (strTarefa.trim() !== "") {
         const btn_item = ` 
@@ -64,7 +67,21 @@ function adicionarTarefa(strTarefa) {
         // "text-truncate" corta e adiciona reticências (três pontinhos ...) em nomes de tarefas que exedem os 75% do tamanho da linha.
         item.innerHTML = "<span class='w-75 text-truncate'>" + strTarefa + "</span>" + btn_item;
         
-        // Adiciona o item aos cookies do navegador 
+        // Adiciona suporte à arrastar e soltar a nova tarefa da lista de tarefas.
+        makeDraggable(item); 
+        // Ao terminar de arrastar a tarefa, reordena ela no cookie do navegador Web para que, ao recarregar a página,
+        // a tarefa seja exibida na nova posição em que ela foi arrastada.
+        item.addEventListener("gragend", () => {
+            let arrayTarefas = []; // Cria um vetor vazio.
+            // Para cada tarefa, conforme sua nova ordem na lista de tarefas após arrastar e soltar os elementos.
+            Array.from(lista_tarefas.children).forEach(i => {
+                i.classList.remove('over')
+                arrayTarefas.push(i.querySelector("span").textContent);
+            });
+            salvarCookieTarefas(arrayTarefas); // Atualiza o cookie com a nova ordem da lista das tarefas.
+        });
+        
+        // Adiciona a nova tarefa aos cookies do navegador.
         adicionarTarefaAoCookie(strTarefa);
         
         // Adiciona o item a lista de tarefas.
@@ -75,6 +92,7 @@ function adicionarTarefa(strTarefa) {
     // Seleciona o campo de "Adicionar nova tarefa..." após adicionar a tarefa na lista.
     txt_nova_tarefa.focus();
 }
+
 function adicionarTarefaEnter(evento) {
     // Se a tecla pressionada for igual a "Enter".
     if (evento.key == "Enter"){
@@ -100,11 +118,11 @@ function concluirTarefa(btn_concluir) {
 }
 
 function excluirTarefa() {
-    // Remove a tarefa do cookie do navegador
+   // Remove a tarefa do cookie do navegador
     const arrayTarefas = ObterTarefasDoNavegador(); // Carrega as tarefas para um vetor à partir do cookie do navegador 
     arrayTarefas.splice(id_tarefa_excluir, 1); // Remove 1 tarefa do vetor à partir do ID da tarefa excluída 
     salvarCookieTarefas(arrayTarefas); // Atualiza o cookie do navegador após excluir a tarefa
-
+    
     // Remove o item da lista de tarefa.
     lista_tarefas.removeChild(lista_tarefas.children[id_tarefa_excluir]);
     // Fecha o modal de "Excluir tarefa".

@@ -56,16 +56,21 @@ input[type="text"]:focus {
     color: white;
     background-color: rgb(48, 128, 108);
     border: 1px solid rgb(48, 128, 108);
-    }
+}
 
 .btn-excluir {
     color: white;
     background-color: rgb(161, 59, 84);
     border: 1px solid rgb(161, 59, 84);
-    }
+}
 
-    .btn-excluir:hover {
-        color: white;
-        background-color: rgb(75, 25, 48);
-        border: 1px solid rgb(75, 25, 48);
-        }
+.btn-excluir:hover {
+    color: white;
+    background-color: rgb(75, 25, 48);
+    border: 1px solid rgb(75, 25, 48);
+}
+
+.dragging {
+    opacity: 0.5;
+    background: #e9ecef;
+}
