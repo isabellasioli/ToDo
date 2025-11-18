@@ -71,7 +71,7 @@ function adicionarTarefa(strTarefa) {
         makeDraggable(item); 
         // Ao terminar de arrastar a tarefa, reordena ela no cookie do navegador Web para que, ao recarregar a página,
         // a tarefa seja exibida na nova posição em que ela foi arrastada.
-        item.addEventListener("gragend", () => {
+        item.addEventListener("dragend", () => {
             let arrayTarefas = []; // Cria um vetor vazio.
             // Para cada tarefa, conforme sua nova ordem na lista de tarefas após arrastar e soltar os elementos.
             Array.from(lista_tarefas.children).forEach(i => {
